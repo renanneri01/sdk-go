@@ -16,6 +16,8 @@ type Response struct {
 	ExpirationTime    string              `json:"expiration_time,omitempty"`
 	CreatedDate       string              `json:"created_date"`
 	LastUpdatedDate   string              `json:"last_updated_date"`
+	ClientID          string              `json:"client_id,omitempty"`
+	CollectorID       string              `json:"collector_id,omitempty"`
 	Transactions      TransactionResponse `json:"transactions"`
 	Payer             PayerResponse       `json:"payer"`
 	Items             []ItemsResponse     `json:"items,omitempty"`
@@ -27,19 +29,55 @@ type TransactionResponse struct {
 }
 
 type PaymentResponse struct {
-	ID            string                `json:"id"`
-	ReferenceID   string                `json:"reference_id"`
-	Status        string                `json:"status"`
-	Amount        string                `json:"amount"`
-	PaymentMethod PaymentMethodResponse `json:"payment_method"`
+	ID                string                    `json:"id"`
+	ReferenceID       string                    `json:"reference_id"`
+	Status            string                    `json:"status"`
+	StatusDetail      string                    `json:"status_detail,omitempty"`
+	Amount            string                    `json:"amount"`
+	PaymentMethod     PaymentMethodResponse     `json:"payment_method"`
+	AutomaticPayments *AutomaticPaymentResponse `json:"automatic_payments,omitempty"`
+	StoredCredential  *StoredCredentialResponse `json:"stored_credential,omitempty"`
+	SubscriptionData  *SubscriptionDataResponse `json:"subscription_data,omitempty"`
 }
 
 type PaymentMethodResponse struct {
 	ID                  string `json:"id"`
+	CardID              string `json:"card_id,omitempty"`
 	Type                string `json:"type"`
 	Token               string `json:"token"`
 	StatementDescriptor string `json:"statement_descriptor,omitempty"`
 	Installments        int    `json:"installments"`
+}
+
+type AutomaticPaymentResponse struct {
+	PaymentProfileID string `json:"payment_profile_id"`
+	ScheduleDate     string `json:"schedule_date"`
+	DueDate          string `json:"due_date"`
+	Retries          int    `json:"retries"`
+}
+
+type StoredCredentialResponse struct {
+	PaymentInitiator   string `json:"payment_initiator"`
+	Reason             string `json:"reason"`
+	StorePaymentMethod bool   `json:"store_payment_method"`
+	FirstPayment       bool   `json:"first_payment"`
+}
+
+type SubscriptionDataResponse struct {
+	InvoiceID            string                       `json:"invoice_id"`
+	BillingDate          string                       `json:"billing_date"`
+	SubscriptionSequence SubscriptionSequenceResponse `json:"subscription_sequence"`
+	InvoicePeriod        InvoicePeriodResponse        `json:"invoice_period"`
+}
+
+type SubscriptionSequenceResponse struct {
+	Number int `json:"number"`
+	Total  int `json:"total"`
+}
+
+type InvoicePeriodResponse struct {
+	Type   string `json:"type"`
+	Period int    `json:"period"`
 }
 
 type RefundResponse struct {
