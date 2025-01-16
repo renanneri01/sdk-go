@@ -29,11 +29,11 @@ func TestOrder(t *testing.T) {
 			Type:              "online",
 			TotalAmount:       "1000.00",
 			ExternalReference: "ext_ref_1234",
-			Transactions: order.Transaction{
-				Payments: []order.Payment{
+			Transactions: order.TransactionRequest{
+				Payments: []order.PaymentRequest{
 					{
 						Amount: "1000.00",
-						PaymentMethod: order.PaymentMethod{
+						PaymentMethod: order.PaymentMethodRequest{
 							ID:           "master",
 							Token:        token,
 							Type:         "credit_card",
@@ -42,7 +42,7 @@ func TestOrder(t *testing.T) {
 					},
 				},
 			},
-			Payer: order.Payer{
+			Payer: order.PayerRequest{
 				Email: fmt.Sprintf("test_user_%s@testuser.com", uuid.New().String()[:7]),
 			},
 		}

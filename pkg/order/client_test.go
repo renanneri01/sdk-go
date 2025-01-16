@@ -88,7 +88,7 @@ func TestCreate(t *testing.T) {
 							ReferenceID: "123456789",
 							Status:      "processed",
 							Amount:      "1000.00",
-							PaymentMethod: PaymentMethod{
+							PaymentMethod: PaymentMethodRequest{
 								ID:                  "master",
 								Type:                "credit_card",
 								Token:               "677859ef5f18ea7e3a87c41d02c3fbe3",
@@ -97,26 +97,26 @@ func TestCreate(t *testing.T) {
 							},
 						},
 					},
-					Refunds: []Refund{},
+					Refunds: []RefundResponse{},
 				},
-				Payer: Payer{
+				Payer: PayerRequest{
 					Email:     "{email}",
 					FirstName: "John",
 					LastName:  "Doe",
-					Identification: &Identification{
+					Identification: &IdentificationRequest{
 						Type:   "CPF",
 						Number: "00000000000",
 					},
-					Phone: &Phone{
+					Phone: &PhoneRequest{
 						AreaCode: "55",
 						Number:   "99999999999",
 					},
-					Address: &Address{
+					Address: &AddressRequest{
 						StreetName:   "Av. das Nações Unidas",
 						StreetNumber: "99",
 					},
 				},
-				Items: []Items{
+				Items: []ItemsRequest{
 					{
 						ID:          "item_id",
 						Title:       "Some item title",

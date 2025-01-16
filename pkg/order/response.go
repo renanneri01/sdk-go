@@ -17,31 +17,75 @@ type Response struct {
 	CreatedDate       string              `json:"created_date"`
 	LastUpdatedDate   string              `json:"last_updated_date"`
 	Transactions      TransactionResponse `json:"transactions"`
-	Payer             Payer               `json:"payer"`
-	Items             []Items             `json:"items,omitempty"`
+	Payer             PayerResponse       `json:"payer"`
+	Items             []ItemsResponse     `json:"items,omitempty"`
 }
 
 type TransactionResponse struct {
 	Payments []PaymentResponse `json:"payments"`
-	Refunds  []Refund          `json:"refunds,omitempty"`
+	Refunds  []RefundResponse  `json:"refunds,omitempty"`
 }
 
 type PaymentResponse struct {
-	ID            string        `json:"id"`
-	ReferenceID   string        `json:"reference_id"`
-	Status        string        `json:"status"`
-	Amount        string        `json:"amount"`
-	PaymentMethod PaymentMethod `json:"payment_method"`
+	ID            string                `json:"id"`
+	ReferenceID   string                `json:"reference_id"`
+	Status        string                `json:"status"`
+	Amount        string                `json:"amount"`
+	PaymentMethod PaymentMethodResponse `json:"payment_method"`
 }
 
-type Refund struct {
+type PaymentMethodResponse struct {
+	ID                  string `json:"id"`
+	Type                string `json:"type"`
+	Token               string `json:"token"`
+	StatementDescriptor string `json:"statement_descriptor,omitempty"`
+	Installments        int    `json:"installments"`
+}
+
+type RefundResponse struct {
 	ID            string `json:"id"`
 	TransactionID string `json:"transaction_id"`
 	Status        string `json:"status"`
 	Amount        string `json:"amount"`
 }
 
-type RefundReference struct {
+type RefundReferenceResponse struct {
 	ID       string `json:"id"`
 	SourceID string `json:"source_id"`
+}
+
+type PayerResponse struct {
+	Email          string                  `json:"email"`
+	FirstName      string                  `json:"first_name,omitempty"`
+	LastName       string                  `json:"last_name,omitempty"`
+	CustomerID     *string                 `json:"customer_id,omitempty"`
+	Identification *IdentificationResponse `json:"identification,omitempty"`
+	Phone          *PhoneResponse          `json:"phone,omitempty"`
+	Address        *AddressResponse        `json:"address,omitempty"`
+}
+
+type IdentificationResponse struct {
+	Type   string `json:"type"`
+	Number string `json:"number"`
+}
+
+type PhoneResponse struct {
+	AreaCode string `json:"area_code"`
+	Number   string `json:"number"`
+}
+
+type AddressResponse struct {
+	StreetName   string `json:"street_name"`
+	StreetNumber string `json:"street_number"`
+}
+
+type ItemsResponse struct {
+	ID          string `json:"id"`
+	Title       string `json:"title"`
+	UnitPrice   string `json:"unit_price"`
+	Description string `json:"description"`
+	CategoryID  string `json:"category_id"`
+	Type        string `json:"type"`
+	PictureUrl  string `json:"picture_url"`
+	Quantity    int    `json:"quantity"`
 }

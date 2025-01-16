@@ -21,11 +21,11 @@ func main() {
 		Type:              "online",
 		TotalAmount:       "1000.00",
 		ExternalReference: "ext_ref_1234",
-		Transactions: order.Transaction{
-			Payments: []order.Payment{
+		Transactions: order.TransactionRequest{
+			Payments: []order.PaymentRequest{
 				{
 					Amount: "1000.00",
-					PaymentMethod: order.PaymentMethod{
+					PaymentMethod: order.PaymentMethodRequest{
 						ID:           "master",
 						Token:        "{{CARD_TOKEN}}",
 						Type:         "credit_card",
@@ -34,15 +34,15 @@ func main() {
 				},
 			},
 		},
-		Payer: order.Payer{
+		Payer: order.PayerRequest{
 			Email: "{{EMAIL}}",
 		},
 	}
 
-	create, err := client.Create(context.Background(), request)
+	resource, err := client.Create(context.Background(), request)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(create)
+	fmt.Println(resource)
 }
